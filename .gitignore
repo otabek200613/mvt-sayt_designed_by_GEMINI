@@ -1,20 +1,28 @@
-# Python kesh fayllari
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual muhit
+# Virtualenv
 venv/
-env/
-.env
+.venv/
 
-# Ma'lumotlar bazasi
+# Django
+*.log
 db.sqlite3
-
-# Statik va media fayllar
-static/
 media/
+staticfiles/
+local_settings.py
 
-# IDE sozlamalari
+# Migrations cache
+**/migrations/__pycache__/
+
+# IDE / OS
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
