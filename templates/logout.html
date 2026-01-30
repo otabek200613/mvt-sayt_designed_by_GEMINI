@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiqish • Davronbek</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="login-page">
+<div class="auth-container">
+    <div class="glass login-card reveal">
+        <div class="logout-visual">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+        </div>
+
+        <h2 class="title" style="margin-bottom: 8px;">Tizimdan chiqish</h2>
+        <p class="text-muted" style="font-size: 0.95rem; line-height: 1.5;">
+            Haqiqatan ham profilingizdan chiqmoqchimisiz?
+        </p>
+
+        <div class="logout-actions">
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn--primary btn--danger btn--wide">
+                    Ha, chiqish
+                </button>
+            </form>
+
+            <a href="/" class="btn btn--secondary btn--cancel btn--wide">
+                Bekor qilish
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

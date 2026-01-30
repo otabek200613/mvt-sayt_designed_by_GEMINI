@@ -1,0 +1,286 @@
+<!doctype html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{{ home.page_title }}</title>
+    <meta name="description" content="Professional veb-dasturlash xizmatlari va portfolio."/>
+
+    <link rel="icon" href="{{ home.icon.url }}" type="image/png"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+
+<body>
+
+<header class="header" id="header">
+    <div class="container header__inner">
+        {% if user.is_authenticated %}
+        <a class="logo" href="#home">
+            {{ home.logo }}<span class="logo__dot">.</span>
+        </a>
+        {% else %}
+        <a class="logo" href="/register/">
+            {{ home.logo }}<span class="logo__dot">.</span>
+        </a>
+        {% endif %}
+
+        <div class="header__actions">
+
+            <nav class="nav" id="nav-menu">
+                <ul class="nav__list">
+                    {% if user.is_authenticated %}
+                    <li><a href="#home" class="nav__link">Asosiy</a></li>
+                    <li><a href="#about" class="nav__link">Men haqimda</a></li>
+                    <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
+                    <li><a href="#contact" class="nav__link">Bog'lanish</a></li>
+
+                    <hr>
+                    <li>
+                        <a href="{% url 'profile' %}"
+                           class="nav__link {% if request.resolver_match.url_name == 'profile' %}active-link{% endif %}">
+                            Profil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}" class="nav__link" style="color: #ff453a;">Chiqish</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'register' %}"
+                           class="nav__link {% if request.resolver_match.url_name == 'register' %}active-link{% endif %}">
+                            Ro'yxatdan o'tish
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}"
+                           class="nav__link {% if request.resolver_match.url_name == 'login' %}active-link{% endif %}">
+                            Kirish
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <button class="nav__close" id="nav-close">&times;</button>
+            </nav>
+
+            <button class="theme-toggle" id="theme-button" aria-label="Toggle Theme">
+                <svg class="theme-icon sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <svg class="theme-icon moon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section id="home" class="section hero">
+        <div class="hero__bg-glow"></div>
+
+        <div class="container hero__grid">
+            <div class="hero__content" data-aos="fade-up">
+                <div class="badge-wrapper">
+                    <span class="badge">🚀 {{ home.job }}</span>
+                </div>
+                <h1 class="hero__title">
+                    Men, <br>
+                    <span class="text-gradient">{{ home.full_name|title }}</span></h1>
+                <h1 class="hero__title"> {{ home.job }}man</h1>
+                <p class="hero__text">
+                    {{ home.description }}
+                </p>
+                {% if user.is_authenticated %}
+                <div class="hero__buttons">
+                    <a class="btn btn--primary" href="#contact">
+                        Men bilan bog'lanish
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a class="btn btn--secondary" href="#portfolio">Ishlarimni ko'rish</a>
+                </div>
+                {% else %}
+                <div class="hero__buttons">
+                    <a class="btn btn--primary" href="/register/">
+                        Saytdan foydalanish
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a class="btn btn--secondary" href="/register/">Ishlarimni ko'rish</a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="hero__img-wrapper" data-aos="fade-left" data-aos-delay="200">
+                <div class="img-box floating-anim">
+                    <img src="{{ home.photo.url }}" alt="{{ home.full_name }}" class="hero__img">
+
+                    <div class="float-card glass-card">
+                        <div class="float-card__icon">
+                            <svg width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="#3b82f6"
+                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="7 18 1 12 7 6"></polyline>
+                                <polyline points="23 6 29 12 23 18"></polyline>
+                                <line x1="17" y1="4" x2="13" y2="20"></line>
+                            </svg>
+                        </div>
+                        <div class="float-card__info">
+                            <strong>{{ home.job }}</strong>
+                            <span>{{ home.language }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if user.is_authenticated %}
+    <section id="about" class="section about">
+        <div class="container about__grid">
+            <div class="about__img-wrapper" data-aos="fade-right">
+                <div class="img-frame">
+                    <img src="{{ about.photo.url }}" alt="About Me" class="about__img">
+                </div>
+            </div>
+
+            <div class="about__content" data-aos="fade-left">
+                <h2 class="section__title">Men haqimda</h2>
+                <h3 class="section__subtitle">{{ about.title|capfirst }}</h3>
+                <p class="text-muted">{{ about.description }}</p>
+
+                <div class="skills-grid">
+                    {% for skill in about.skill_set.all %}
+                    <div class="skill-card">
+                        <div class="skill-icon">{{ skill.emoji }}</div>
+                        <h4>{{ skill.skill }}</h4>
+                        <p>{{ skill.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section portfolio bg-alt">
+        <div class="container">
+            <div class="section__header center" data-aos="fade-up">
+                <h2 class="section__title">So'nggi Loyihalar</h2>
+            </div>
+
+            <div class="projects-grid">
+                {% for blog in blogs %}
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-card__thumb">
+                        <img src="{{ blog.photo.url }}" alt="Project One">
+                        <div class="overlay">
+                            <a href="{% url 'blog' blog.id %}" class="btn btn--white">Saytga o'tish</a>
+                        </div>
+                    </div>
+                    <div class="project-card__body">
+                        <span class="category">{{ blog.category }}</span>
+                        <h3 class="project-title">{{ blog.title }}</h3>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="container contact__grid">
+            <div class="contact__info" data-aos="fade-right">
+                <h2 class="section__title">Bog'lanish</h2>
+                <p class="text-muted mb-30">Loyihangizni muhokama qilishga tayyorman. <br> So'rov qoldiring va men siz
+                    bilan bog'lanaman.</p>
+
+                <div class="contact__list">
+                    <div class="contact__item">
+                        <div class="icon-box">📍</div>
+                        <div>
+                            <h5>Manzil</h5>
+                            <p>{{ home.address}}</p>
+                        </div>
+                    </div>
+                    <div class="contact__item">
+                        <div class="icon-box">📧</div>
+                        <div>
+                            <h5>Email</h5>
+                            <a href="mailto:{{ home.email }}">{{ home.email }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact__form-wrapper" data-aos="fade-left">
+                <form class="form" method="post">
+                    {% csrf_token %}
+                    <div class="form__group">
+                        <label for="name">Ismingiz</label>
+                        {{ form.full_name }}
+                        <!--                        <input type="text" id="name" name="name" class="form__input" placeholder="Ism familiya">-->
+                    </div>
+                    <div class="form__group">
+                        <label for="email">Email</label>
+                        {{ form.email }}
+                        <!--                        <input type="email" id="email" name="email" class="form__input" placeholder="example@mail.com">-->
+                    </div>
+                    <div class="form__group">
+                        <label for="message">Xabar</label>
+                        <!--                        <textarea id="message" name="message" class="form__input" rows="4"-->
+                        <!--                                  placeholder="Loyihangiz haqida yozing..."></textarea>-->
+                        {{ form.message }}
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full btn--animate">
+                        Xabarni Yuborish
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</main>
+{% if user.is_authenticated %}
+<footer class="footer">
+    <div class="container footer__content">
+        <div class="footer__left">
+            <span class="brand">{{ home.logo }}.</span>
+            <p class="copyright">© 2026 Barcha huquqlar himoyalangan.</p>
+        </div>
+        <div class="footer__right">
+            {% for link in home.homelink_set.all %}
+            <a href="{{ link.url }}" class="social-link">{{ link.title|capfirst }}</a>
+            {% empty %}
+            <span>Linklar mavjud emas</span>
+            {% endfor %}
+        </div>
+    </div>
+</footer>
+{% endif %}
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

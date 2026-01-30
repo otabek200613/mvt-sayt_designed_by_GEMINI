@@ -1,0 +1,20 @@
+# Python kesh fayllari
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual muhit
+venv/
+env/
+.env
+
+# Ma'lumotlar bazasi
+db.sqlite3
+
+# Statik va media fayllar
+static/
+media/
+
+# IDE sozlamalari
+.vscode/
+.idea/

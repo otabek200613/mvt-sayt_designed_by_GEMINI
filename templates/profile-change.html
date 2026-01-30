@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilni tahrirlash</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-alt">
+
+<header class="header" id="header">
+    <div class="container header__inner">
+        <a href="/" class="logo">{{ home.logo }}<span class="logo__dot">.</span></a>
+
+        <div class="header__actions">
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+            <nav class="nav" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/#home" class="nav__link">Asosiy</a></li>
+                    <li><a href="/profile" class="nav__link">Profil</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class='bx bx-x'></i>
+                </div>
+            </nav>
+
+            <button class="theme-toggle" id="theme-button">
+                <svg class="theme-icon sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <svg class="theme-icon moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <section class="section profile-edit">
+        <div class="container">
+            <div class="profile-card glass-card">
+                <h2 class="section-title" style="margin-bottom: 2rem;">Profilni tahrirlash</h2>
+
+                <form method="POST" enctype="multipart/form-data" class="edit-form">
+                    {% csrf_token %}
+
+                    <div class="edit-avatar-section">
+                        <div class="profile-avatar-container">
+                            {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" alt="Avatar" class="profile-img" id="output">
+                            {% else %}
+                            <img src="{% static 'img/default-avatar.jpg' %}" alt="Avatar" class="profile-img"
+                                 id="output">
+                            {% endif %}
+
+                            <label for="file" class="camera-btn">
+                                <i class='bx bxs-camera'></i>
+                            </label>
+
+                            {{ form.avatar }}
+                        </div>
+                        <p class="text-muted" style="font-size: 0.8rem;">Rasm o'zgartirish uchun kamerani bosing</p>
+                    </div>
+
+                    <div class="form__group">
+                        <label>Ism va Familiya</label>
+                        {{ form.full_name }}
+                    </div>
+
+                    <div class="form__group">
+                        <label>Username</label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class="form__group">
+                        <label>Telefon raqam</label>
+                        {{ form.phone }}
+                    </div>
+
+                    <div class="form__group">
+                        <label>Email manzil</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="edit-actions">
+                        <button type="submit" class="btn btn--primary btn--full">Saqlash</button>
+                        <a href="/profile" class="back-link">Bekor qilish va qaytish</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    // Rasmni tanlaganda ekranda darhol ko'rsatish funksiyasi
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

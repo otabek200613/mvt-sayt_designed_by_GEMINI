@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{home.page_title}}</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-alt">
+
+<header class="header" id="header">
+    <div class="container header__inner">
+        <a href="/" class="logo">{{ home.logo }}<span class="logo__dot">.</span></a>
+
+        <div class="header__actions">
+            <nav class="nav" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/#home" class="nav__link">Asosiy</a></li>
+                    <li><a href="/#about" class="nav__link">Men haqimda</a></li>
+                    <li><a href="/#portfolio" class="nav__link">Portfolio</a></li>
+                    <li><a href="/#contact" class="nav__link">Bog'lanish</a></li>
+                </ul>
+            </nav>
+
+            <button class="theme-toggle" id="theme-button" aria-label="Toggle Theme">
+                <svg class="theme-icon sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <svg class="theme-icon moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <section class="blog-details">
+        <div class="container blog-container">
+            <div class="blog-details__banner">
+                <img src="{{ blog.photo.url }}" alt="Banner">
+            </div>
+
+            <div class="blog-details__date">
+                <span class="day">{{ blog.created_at|date:"d" }}</span>
+                <div class="date-info">
+                    <span class="month">{{ blog.created_at|date:"F" }}</span>
+                    <span class="year">{{ blog.created_at|date:"Y" }}</span>
+                </div>
+            </div>
+
+            <div class="blog-details__header">
+                <span class="badge">{{ blog.category }}</span>
+                <h1 class="blog-details__title">{{ blog.detail_title}}</h1>
+            </div>
+
+            <article class="blog-details__content glass-card">
+                <p class="blog-details__text-large">{{ blog.body}}</p>
+
+            </article>
+
+<!--            <div class="blog-author glass-card">-->
+<!--                <img src="{% static 'img/about-image.png' %}" alt="Muallif" class="blog-author__img">-->
+<!--                <div class="blog-author__info">-->
+<!--                    <h4>Davronbek Karimov</h4>-->
+<!--                    <p>Web Developer & Backend Expert.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </section>
+</main>
+
+
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

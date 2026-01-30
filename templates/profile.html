@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil • {{ user.username }}</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-alt">
+
+<header class="header" id="header">
+    <div class="container header__inner">
+        <a href="/" class="logo">{{ home.logo}}<span class="logo__dot">.</span></a>
+
+        <div class="header__actions">
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+            <nav class="nav" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/#home" class="nav__link">Asosiy</a></li>
+                    <li><a href="{% url 'logout' %}" class="nav__link" style="color: #ff453a;">Chiqish</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class='bx bx-x'></i>
+                </div>
+            </nav>
+
+            <button class="theme-toggle" id="theme-button">
+                <svg class="theme-icon sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <svg class="theme-icon moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <section class="section profile">
+        <div class="container">
+            <div class="profile-card glass-card">
+                <div class="profile-avatar-container">
+                    <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/default-avatar.jpg' %}{% endif %}"
+                         alt="{{ profile.full_name }}" class="profile-img">
+                </div>
+
+                <div class="profile-main-info">
+                    <h2 class="profile-name">{{ profile.full_name|default:request.user.get_full_name }}</h2>
+                    <p class="profile-username">Username: {{ profile.username|default:request.user.username }}</p>
+
+                </div>
+
+
+                <div class="profile-contact-list">
+                    <div class="contact-item">
+                        <i class='bx bx-phone'></i>
+                        <span>{{ profile.phone|default:"Telefon kiritilmagan" }}</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class='bx bx-envelope'></i>
+                        <span>{{ profile.email|default:request.user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions" style="margin-top: 1.5rem;">
+                    <a href="{% url 'profile_change' %}" class="btn btn--primary btn--full"
+                       style="display: block; text-align: center; margin-bottom: 0.75rem;">
+                        <i class='bx bx-edit-alt'></i> Tahrirlash
+                    </a>
+                    <a href="/change_password/" class="btn btn--secondary btn--full"
+                       style="display: block; text-align: center; border: 1px solid var(--border-color); color: var(--text-main);">
+                        <i class='bx bx-lock-alt'></i> Parolni o'zgartirish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
