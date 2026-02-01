@@ -48,6 +48,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200,blank=True,verbose_name="Blog nomi ")
     detail_title = models.CharField(max_length=50,blank=True,verbose_name="Detail sahifa uchun nom")
     body = models.TextField(blank=True,verbose_name="Blog haqida umumiy ma'lumot")
+    url = models.URLField(blank=True,null=True)
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
